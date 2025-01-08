@@ -3,6 +3,8 @@ Franka Panda ROS 2 Ignition Gazebo Simulation for ROBO.720 Advanced Robotics
 
 This repository provides a simulation environment for the Franka Panda robotic arm, utilizing ROS 2 and Ignition Gazebo. The project was developed as part of a university project to facilitate research and experimentation with robotic arm simulations. This repository evolves from the original [edu-elfin_simulation (ROS1)](https://github.com/tau-alma/edu-elfin_simulation), replacing the Elfin manipulator with the Franka Panda.
 
+![franka_panda](https://github.com/user-attachments/assets/ac0c12a9-e2b9-4969-81b0-b1c8e54c6e45)
+
 
 ## Features
 - Simulates the Franka Panda robotic arm in Ignition Gazebo.
@@ -21,7 +23,7 @@ LIBGL_ALWAYS_SOFTWARE=1
 Example:
 ```
 LIBGL_ALWAYS_SOFTWARE=1 ros2 launch franka_gazebo computed_torque_controller.launch.py
-
+```
 ## Installation
 
 ### Install Effort Controllers for Torque-Control Interface
@@ -36,9 +38,7 @@ sudo apt-get install ros-humble-gazebo-ros-pkgs ros-humble-gazebo-ros2-control r
 
 ### Install Controller Interface, Control Messages, and KDL Parser
 ```
-sudo apt install ros-humble-controller-interface
-sudo apt install ros-humble-control-msgs
-sudo apt install ros-humble-kdl-parser
+sudo apt install ros-humble-controller-interface ros-humble-control-msgs ros-humble-kdl-parser
 ```
 
 ### Download, Create a Workspace, and Build
