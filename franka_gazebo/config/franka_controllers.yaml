@@ -1,0 +1,125 @@
+# Copyright (c) 2025 Tampere University, Autonomous Mobile Machines
+#
+# Licensed under the MIT License.
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# controller_manager provides the necessary infrastructure to manage multiple controllers efficiently and robustly using ROS 2 Control.
+controller_manager:
+  ros__parameters:
+    update_rate: 1000 # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    time_delay_controller:
+      type: arm_controllers/TimeDelayController
+
+    joint_position_example_controller:
+      type: arm_controllers/JointPositionExampleController
+
+    joint_velocity_example_controller:
+      type: arm_controllers/JointVelocityExampleController
+
+    joint_impedance_example_controller:
+      type: arm_controllers/JointImpedanceExampleController
+
+    computed_torque_controller:
+      type: arm_controllers/ComputedTorqueController
+
+time_delay_controller:
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    command_interfaces:
+      - position
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+
+joint_position_example_controller:
+  ros__parameters:
+    gazebo: true
+
+joint_velocity_example_controller:
+  ros__parameters:
+    gazebo: true
+  
+joint_impedance_example_controller:
+  ros__parameters:
+    k_gains:
+      - 50.0
+      - 120.0
+      - 50.0
+      - 120.0
+      - 10.0
+      - 6.0
+      - 2.0
+    d_gains:
+      - 10.0
+      - 10.0
+      - 10.0
+      - 10.0
+      - 2.0
+      - 1.0
+      - 0.5
+      
+computed_torque_controller:
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    p_gains:
+      - 100.0
+      - 100.0
+      - 100.0
+      - 100.0
+      - 100.0
+      - 100.0
+      - 100.0
+    i_gains:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+    d_gains:
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+    tip_link: panda_link7
+    root_link: base

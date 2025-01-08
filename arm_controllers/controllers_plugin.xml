@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<library path="arm_controllers">
+  <class name="arm_controllers/TimeDelayController"
+         type="arm_controllers::TimeDelayController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      TimeDelay controller for robot control
+    </description>
+  </class>
+  <class name="arm_controllers/ComputedTorqueController"
+         type="arm_controllers::ComputedTorqueController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      The computed torque controller
+    </description>
+  </class>
+  <class name="arm_controllers/JointImpedanceExampleController"
+        type="arm_controllers::JointImpedanceExampleController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          The joint impedance example controller moves joint 4 and 5 in a very compliant periodic movement.
+      </description>
+  </class>
+  <class name="arm_controllers/JointVelocityExampleController"
+        type="arm_controllers::JointVelocityExampleController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          The joint velocity example controller moves joint 4 and 5 in a periodic movement.
+      </description>
+  </class>
+  <class name="arm_controllers/JointPositionExampleController"
+        type="arm_controllers::JointPositionExampleController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          The joint position example controller moves in a periodic movement.
+      </description>
+  </class>
+</library>
