@@ -30,7 +30,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 // Real-time buffer (real-time utilities)
-#include <realtime_tools/realtime_buffer.h>
+#include <realtime_tools/realtime_buffer.hpp>
 
 // Plugin system
 #include <pluginlib/class_list_macros.hpp>
@@ -40,7 +40,7 @@
 
 
 // URDF model parsing
-#include <urdf/model.h>
+#include <urdf/model.hpp>
 
 // KDL libraries
 #include <kdl/kdl.hpp>
