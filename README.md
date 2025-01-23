@@ -14,43 +14,41 @@ This repository provides a simulation environment for the Franka Panda robotic a
 - Ubuntu 22.04
 - ROS 2 Humble - [Installation Guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 
-### (Optional) VMware
-Suboptimal performance in Gazebo simulations due to only CPU rendering being available. Use the following argument when launching simulations in VMware:
-
-```
-LIBGL_ALWAYS_SOFTWARE=1
-```
-Example:
-```
-LIBGL_ALWAYS_SOFTWARE=1 ros2 launch franka_gazebo computed_torque_controller.launch.py
-```
 ## Installation
 
-### Install Effort Controllers for Torque-Control Interface
+### Install and Initialize rosdep
 ```
-sudo apt install ros-humble-ros2-control ros-humble-ign-ros2-control ros-humble-ros2-controllers ros-humble-joint-state-publisher-gui ros-humble-ros-gz
+sudo apt-get install python3-rosdep
 ```
-
-### Install Gazebo ROS Packages and Gazebo ROS Control
+If this is the first time using rosdep, it must be initialized via:
 ```
-sudo apt-get install ros-humble-gazebo-ros-pkgs ros-humble-gazebo-ros2-control ros-humble-effort-controllers
+sudo rosdep init
+rosdep update
 ```
-
-### Install Controller Interface, Control Messages, and KDL Parser
-```
-sudo apt install ros-humble-controller-interface ros-humble-control-msgs ros-humble-kdl-parser
-```
-
 ### Download, Create a Workspace, and Build
 ```
 mkdir -p edu-franka_simulation_ws/src
 cd ~/edu-franka_simulation_ws/src
-git clone https://github.com/tau-alma/edu-franka_simulation.git
-cd ~/edu-franka_simulation_ws/
+```
+Clone the repository:
+- Using SSH:
+  ```
+  git clone git@github.com:tau-alma/edu-franka_simulation.git
+  ```
+- Using HTTPS:
+  ```
+  git clone https://github.com/tau-alma/edu-franka_simulation.git
+  ```
+Install dependencies using rosdep:
+```
+cd ~/edu-franka_simulation_ws
+rosdep install --from-paths src -y --ignore-src
+```
+Build the workspace:
+```
 colcon build
 source install/setup.bash
 ```
-
 ## Running the Simulation
 1. Open a new terminal and source the workspace:
    ```bash
@@ -62,13 +60,27 @@ source install/setup.bash
    ```bash
    ros2 launch franka_gazebo "INSERT_CONTROLLER_NAME_HERE".launch.py
    ```
-
 ### Available Controllers
 - `computed_torque_controller`
 - `time_delay_controller`
+
+**Note:** The RCLCPP_ERROR "Error initializing URDF to resource manager!" is normal and does not need to be taken into account.
+
+### Example Controllers
+The following controllers are provided as examples for ROS 2 control and are not used in the course implementation:
 - `joint_impedance_example_controller`
 - `joint_position_example_controller`
 - `joint_velocity_example_controller`
+
+## IMPORTANT: If you are using VMware:
+Gazebo simulation will flicker and will not render anything to the screen if you are using VMware. To fix this, use the following argument when launching simulations in VMware:
+```
+LIBGL_ALWAYS_SOFTWARE=1
+```
+Example:
+```
+LIBGL_ALWAYS_SOFTWARE=1 ros2 launch franka_gazebo computed_torque_controller.launch.py
+```
 
 ## Licensing
 This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
@@ -83,7 +95,26 @@ Additional references:
 - [ROS 2 KDL Parser](https://github.com/ros/kdl_parser/tree/humble)
 - [ROS 2 Controller Package Framework](https://control.ros.org/humble/doc/ros2_controllers/doc/writing_new_controller.html)
 - [ROS 2 Migration Guide](https://docs.ros.org/en/foxy/The-ROS2-Project/Contributing/Migration-Guide.html)
+- [Rosdep packages](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html#install-ros-2-packages)
 
 ## Acknowledgments
 - [Franka Emika](https://www.franka.de/) for the design of the Franka Panda robotic arm.
 - [franka_ros](https://github.com/frankaemika/franka_ros) repository for providing the base URDF and visual assets.
+
+
+## [OPTIONAL] Manual Installation without Rosdep
+
+Install Effort Controllers for Torque-Control Interface
+```
+sudo apt install ros-humble-ros2-control ros-humble-ign-ros2-control ros-humble-ros2-controllers ros-humble-joint-state-publisher-gui ros-humble-ros-gz
+```
+
+Install Gazebo ROS Packages and Gazebo ROS Control
+```
+sudo apt-get install ros-humble-gazebo-ros-pkgs ros-humble-gazebo-ros2-control ros-humble-effort-controllers
+```
+
+Install Controller Interface, Control Messages, and KDL Parser
+```
+sudo apt install ros-humble-controller-interface ros-humble-control-msgs ros-humble-kdl-parser
+```
