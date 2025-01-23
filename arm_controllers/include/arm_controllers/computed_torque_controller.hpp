@@ -40,7 +40,7 @@
 
 
 // URDF model parsing
-#include <urdf/model.hpp>
+#include <urdf/model.h>
 
 // KDL libraries
 #include <kdl/kdl.hpp>
