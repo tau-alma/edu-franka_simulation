@@ -138,9 +138,9 @@ controller_interface::return_type ComputedTorqueController::update(
   for (int i = 0; i < num_joints; i++)
   {
       // For torque command:
-      command_interfaces_[i].set_value(tau_d_(i));
+      // command_interfaces_[i].set_value(tau_d_(i));
       // For no control command (zero torque for the joints):
-      // command_interfaces_[i].set_value(0.0);
+      command_interfaces_[i].set_value(0.0);
   }
 
   // save_data
