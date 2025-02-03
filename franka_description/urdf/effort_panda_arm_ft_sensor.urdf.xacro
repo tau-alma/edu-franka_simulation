@@ -72,14 +72,12 @@
 
   <xacro:if value="$(arg sim_ignition)">
     <!-- Gazebo plugins -->
-    <gazebo reference="base">
-    </gazebo>
-    <gazebo reference="$(arg arm_id)_ft_sensor_joint">
+    <gazebo reference="$(arg arm_id)_sensor_joint">
       <sensor name="force_torque_sensor" type="force_torque">
         <update_rate>100.0</update_rate>
-        <always_on>1</always_on>
+        <always_on>true</always_on>
         <topic>/sensor_joint/force_torque</topic>
-        <visualize>false</visualize>
+        <visualize>true</visualize>
         <ignition_frame_id>$(arg arm_id)_ft_sensor_link</ignition_frame_id>
         <force_torque>
           <frame>child</frame>
@@ -87,6 +85,7 @@
         </force_torque>
       </sensor>
     </gazebo>
+    
     <gazebo>
       <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
         <robot_param>robot_description</robot_param>
