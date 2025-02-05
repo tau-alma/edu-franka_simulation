@@ -28,7 +28,7 @@
     <visual>
       <origin xyz="0 0 0.5" rpy="0 0 0" />
       <geometry>
-        <box size="1.7 0.5 1" />
+        <box size="1.71 0.51 1" />
       </geometry>
       <material name="metal">
         <color rgba="0.768627450980392 0.749019607843137 0.729411764705882 1" />
@@ -37,7 +37,7 @@
     <collision>
       <origin xyz="0 0 0.5" rpy="0 0 0" />
       <geometry>
-        <box size="1.7 0.5 1" />
+        <box size="1.71 0.51 1" />
       </geometry>
     </collision>
     <inertial>

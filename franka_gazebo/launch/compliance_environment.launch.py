@@ -76,10 +76,10 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    computed_torque_controller_spawner = Node(
+    joint_impedance_example_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["computed_torque_controller", "--controller-manager", "/controller_manager"],
+        arguments=["joint_impedance_example_controller", "--controller-manager", "/controller_manager"],
     )
 
     # GZ nodes
@@ -119,7 +119,7 @@ def generate_launch_description():
         robot_state_publisher_node,
         controller_manager_node,
         joint_state_broadcaster_spawner,
-        computed_torque_controller_spawner,
+        joint_impedance_example_controller_spawner,
         gz_spawn_entity,
         gz_launch_description,
         gz_to_ros_bridge,
