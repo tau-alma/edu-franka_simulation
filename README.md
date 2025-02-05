@@ -49,6 +49,8 @@ Build the workspace:
 colcon build
 source install/setup.bash
 ```
+**Note:** If for whatever reason the build fails, you can install the dependencies manually. Instructions and commands at the end of this document.
+
 ## Running the Simulation
 1. Open a new terminal and source the workspace:
    ```bash
@@ -64,7 +66,15 @@ source install/setup.bash
 - `computed_torque_controller`
 - `time_delay_controller`
 
-**Note:** The RCLCPP_ERROR "Error initializing URDF to resource manager!" is normal and does not need to be taken into account.
+### Compliance environment
+Additionally, the compliance environment can be launched in the same way as the other controllers, and the sensor plugin successfully publishes its readings to the /sensor_joint/force_torque ros2 topic using Gaze-bo-ROS bridge, as seen below. 
+Note: the environment does not have an controller implemented yet, so it uses the joint_impedance_example_controller for now.
+- `compliance_environment.launch.py`
+
+![Force_complience](https://github.com/user-attachments/assets/7769775a-d56c-40a6-ac84-95d7a04ff587)
+
+
+**Note:** The RCLCPP_ERROR "Error initializing URDF to resource manager!" is normal behaviour and does not need to be taken into account.
 
 ### Example Controllers
 The following controllers are provided as examples for ROS 2 control and are not used in the course implementation:
@@ -102,7 +112,7 @@ Additional references:
 - [franka_ros](https://github.com/frankaemika/franka_ros) repository for providing the base URDF and visual assets.
 
 
-## [OPTIONAL] Manual Installation without Rosdep
+## [OPTIONAL] Manual Installation without Rosdep (ROS2 Humble)
 
 Install Effort Controllers for Torque-Control Interface
 ```
