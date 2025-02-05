@@ -110,19 +110,19 @@ controller_interface::return_type ComputedTorqueController::update(
 
 
   // DEBUG: statements to print matrix dimensions
-  // auto node = get_node();
-  // RCLCPP_INFO(node->get_logger(), "M_ dimensions: %ld x %ld", M_eigen.rows(), M_eigen.cols());
-  // RCLCPP_INFO(node->get_logger(), "qd_ddot_ size: %ld", qd_ddot_eigen.size());
-  // RCLCPP_INFO(node->get_logger(), "Kp_ size: %ld", Kp_eigen.size());
-  // RCLCPP_INFO(node->get_logger(), "e_ size: %ld", e_eigen.size());
-  // RCLCPP_INFO(node->get_logger(), "Kd_ size: %ld", Kd_eigen.size());
-  // RCLCPP_INFO(node->get_logger(), "e_dot_ size: %ld", e_dot_eigen.size());
 
-  // RCLCPP_INFO(node->get_logger(), "q_ size: %ld", q_.data.size());
-  // RCLCPP_INFO(node->get_logger(), "qdot_ size: %ld", qdot_.data.size());
-  // RCLCPP_INFO(node->get_logger(), "qd_ size: %ld", qd_.data.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "M_ dimensions: %ld x %ld", M_eigen.rows(), M_eigen.cols());
+  // RCLCPP_INFO(get_node()->get_logger(), "qd_ddot_ size: %ld", qd_ddot_eigen.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "Kp_ size: %ld", Kp_eigen.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "e_ size: %ld", e_eigen.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "Kd_ size: %ld", Kd_eigen.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "e_dot_ size: %ld", e_dot_eigen.size());
 
-  // // RCLCPP_INFO(node->get_logger(), "q_ data: %f, %f, %f, %f, %f, %f, %f, %f", q_.data[0], q_.data[1], q_.data[2], q_.data[3], q_.data[4], q_.data[5], q_.data[6], q_.data[7]);
+  // RCLCPP_INFO(get_node()->get_logger(), "q_ size: %ld", q_.data.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "qdot_ size: %ld", qdot_.data.size());
+  // RCLCPP_INFO(get_node()->get_logger(), "qd_ size: %ld", qd_.data.size());
+
+  //RCLCPP_INFO(get_node()->get_logger(), "q_ data: %f, %f, %f, %f, %f, %f, %f, %f", q_.data[0], q_.data[1], q_.data[2], q_.data[3], q_.data[4], q_.data[5], q_.data[6], q_.data[7]);
 
   // if (M_eigen.rows() != num_joints)
   // {
@@ -140,7 +140,7 @@ controller_interface::return_type ComputedTorqueController::update(
       // For torque command:
       command_interfaces_[i].set_value(tau_d_(i));
       // For no control command (zero torque for the joints):
-      // command_interfaces_[i].set_value(0.0);
+      // command_interfaces_[i].set_value(0);
   }
 
   // save_data
@@ -245,7 +245,8 @@ controller_interface::return_type ComputedTorqueController::update(
   pub_SaveData_->publish(msg_SaveData_);
 
 
-  // print_state every 100 iterations (0.1 sec)
+  // print_state every 100 iterations (0.1 sec) (uncomment to print)
+
   // static int count = 0;
   // if (count > 99)
   // {
