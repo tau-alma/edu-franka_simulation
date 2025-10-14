@@ -20,20 +20,16 @@ rosdep update
 ### Download, Create a Workspace, and Build
 ```
 mkdir -p edu-franka_vs_ws/src
-cd ~/edu-franka_vs_ws/src
+cd edu-franka_vs_ws/src
 ```
 Clone the repository:
-- Using SSH:
-  ```
-  git clone git@github.com:tau-alma/edu-franka_simulation.git
-  ```
 - Using HTTPS:
   ```
-  git clone https://github.com/tau-alma/edu-franka_simulation.git -b visual_serv
+  git clone https://github.com/tau-alma/edu-franka_simulation.git -b visual_serv .
   ```
 Install dependencies using rosdep:
 ```
-cd ~/edu-franka_vs_ws
+cd edu-franka_vs_ws
 rosdep install --from-paths src -y --ignore-src
 ```
 Build the workspace:
