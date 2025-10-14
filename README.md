@@ -1,4 +1,5 @@
 # edu-franka_simulation
+
 Franka Panda ROS 2 Ignition Gazebo Simulation for ROBO.720 Advanced Robotics
 
 This repository provides a simulation environment for the Franka Panda robotic arm, utilizing ROS 2 and Ignition Gazebo. The project was developed as part of a university project to facilitate research and experimentation with robotic arm simulations. This repository evolves from the original [edu-elfin_simulation (ROS1)](https://github.com/tau-alma/edu-elfin_simulation), replacing the Elfin manipulator with the Franka Panda.
