@@ -1,8 +1,6 @@
 # Setting up the simulation environment for Visual Servoing Exercise
 
-The visual servoing exercise requires a camera sensor simulated in gazebo environment. 
-In previous exercises, a single `URDF` file of the Franka panda robot was used for simulation.
-However, simulation of gazebo sensors ( eg: camera) was part of gazebo classic (EOL 2025) and does not support Ignition gazebo (Fortress/Garden/Harmonic, a.k.a. `gz sim`). In `gz_sim` sensors are first-class `SDF` <sensor> elements. When you simulate an `URDF` file in ignition gazebo ( here after reffered to as gazebo) it is automatically converted to a `SDF` file during spawning. Defining a gazebo sensor inside `URDF` file does not accurfately convert into a working `SDF` file. Therefore, the recommended approach is to convert the `URDF` file to a `SDF` file offline and combine it with a `SDF`file of well defined camera model. A working example of RGB camera mounted on Franka panda robot is presented in the edu_franka_simulation repository.
+This branch presents a simulation of Franka Panda arm with a camera sensor in gazebo environment. A custom world with an aruco marker is simulated and its pose is estimated by a pose estimation script. Simulation of gazebo sensors ( eg: camera) was part of gazebo classic (EOL 2025) and does not support Ignition gazebo (Fortress/Garden/Harmonic, a.k.a. `gz sim`). In `gz_sim` sensors are first-class `SDF` <sensor> elements. When you simulate an `URDF` file in ignition gazebo ( here after reffered to as gazebo) it is automatically converted to a `SDF` file during spawning. Defining a gazebo sensor inside `URDF` file does not accurfately convert into a working `SDF` file. Therefore, the recommended approach is to convert the `URDF` file to a `SDF` file offline and combine it with a `SDF`file of well defined camera model.
 
 
 ![Vis_serv_demo](./assets/vs_demo.gif)
@@ -21,8 +19,8 @@ rosdep update
 ```
 ### Download, Create a Workspace, and Build
 ```
-mkdir -p edu-franka_simulation_ws/src
-cd ~/edu-franka_simulation_ws/src
+mkdir -p edu-franka_vs_ws/src
+cd ~/edu-franka_vs_ws/src
 ```
 Clone the repository:
 - Using SSH:
@@ -35,7 +33,7 @@ Clone the repository:
   ```
 Install dependencies using rosdep:
 ```
-cd ~/edu-franka_simulation_ws
+cd ~/edu-franka_vs_ws
 rosdep install --from-paths src -y --ignore-src
 ```
 Build the workspace:
