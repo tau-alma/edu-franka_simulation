@@ -29,7 +29,7 @@ Clone the repository:
   ```
 Install dependencies using rosdep:
 ```
-cd edu-franka_vs_ws
+cd ..
 rosdep install --from-paths src -y --ignore-src
 ```
 Build the workspace:
@@ -41,6 +41,8 @@ Launch the simulation
 ```
 ros2 launch franka_gazebo launch_with_camera.launch.py
 ```
+
+* If you face numpy versioning errors against opencv build, temporarily remove the numpy library from system packages using "pip uninstall numpy"
 
 
 ## 2. Implementation
