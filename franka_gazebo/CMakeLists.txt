@@ -21,11 +21,11 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-# Install the script so ros2 run can find it
-#install(PROGRAMS
-# scripts/tri_wave.py
-#  scripts/pose_estimate.py
-#  DESTINATION lib/${PROJECT_NAME})
+Install the script so ros2 run can find it
+install(PROGRAMS
+   scripts/tri_wave.py
+   scripts/pose_estimate.py
+   DESTINATION lib/${PROJECT_NAME})
 
 # Absolute share dir for this install
 set(PKG_SHARE "${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}")

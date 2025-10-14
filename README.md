@@ -39,7 +39,7 @@ source install/setup.bash
 ```
 Launch the simulation
 ```
-ros2 launch franka_gazebo launch_with_camera.py
+ros2 launch franka_gazebo launch_with_camera.launch.py
 ```
 
 
