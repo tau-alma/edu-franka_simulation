@@ -21,6 +21,7 @@ add_library(${PROJECT_NAME} SHARED
   src/joint_impedance_example_controller.cpp
   src/time_delay_controller.cpp
   src/computed_torque_controller.cpp
+  src/computed_torque_clik_controller.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

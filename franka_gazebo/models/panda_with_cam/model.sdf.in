@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="panda_with_cam">
+    <include>
+      <uri>file://@PKG_SHARE@/models/panda/model.sdf</uri>
+      <name>panda</name>
+    </include>
+   
+    <include>
+      <uri>file://@PKG_SHARE@/models/rgb_camera/model.sdf</uri>
+      <name>rgb_camera</name>
+      <pose relative_to="panda::panda_link7">0 0 0.15 0 -1.57079633 0</pose>
+    </include>
+
+    <joint name="camera_mount" type="fixed">
+      <parent>panda::panda_link7</parent>
+      <child>rgb_camera::camera_link</child>
+      <pose relative_to="panda::panda_link7">0 0 0.15 0 0 0</pose>
+    </joint>
+    
+  <!--
+  <link name="box_link">
+      <visual name='visual'>
+        <geometry>
+            <box>
+                <size>2.0 1.0 0.5</size>
+            </box>
+        </geometry>
+        <material>
+            <ambient>0.0 0.0 1.0 1</ambient>
+            <diffuse>0.0 0.0 1.0 1</diffuse>
+            <specular>0.0 0.0 1.0 1</specular>
+        </material>
+      </visual>
+      <pose relative_to="panda::panda_link7">0 0 0 0.08 0 0</pose>
+    </link>
+    
+   <joint name="box_mount" type="fixed">
+      <parent>panda::panda_link7</parent>
+      <child>box_link</child>
+      <pose relative_to="panda::panda_link7"> 0 0 0.08 0 0 0 </pose>
+  </joint>
+    -->
+  </model>
+</sdf>

@@ -35,4 +35,11 @@
           The joint position example controller moves in a periodic movement.
       </description>
   </class>
+  
+<class name="arm_controllers/ComputedTorqueCLIKController"
+  type="arm_controllers::ComputedTorqueCLIKController"
+  base_class_type="controller_interface::ControllerInterface">
+  <description>Computed Torque Controller with Closed-Loop IK (CLIK) for Panda</description>
+</class>
+  
 </library>

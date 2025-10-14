@@ -83,9 +83,12 @@ controller_interface::return_type ComputedTorqueController::update(
   // Calculate the desired Trajecoty in Joint Space
   for (size_t i = 0; i < num_joints; i++)
   {
-      qd_ddot_(i) = -M_PI * M_PI / 4 * 45 * KDL::deg2rad * sin(M_PI / 2 * t); 
-      qd_dot_(i) = M_PI / 2 * 45 * KDL::deg2rad * cos(M_PI / 2 * t);          
-      qd_(i) = 45 * KDL::deg2rad * sin(M_PI / 2 * t);
+      //qd_ddot_(i) = -M_PI * M_PI / 4 * 45 * KDL::deg2rad * sin(M_PI / 2 * t); 
+      //qd_dot_(i) = M_PI / 2 * 45 * KDL::deg2rad * cos(M_PI / 2 * t);          
+      //qd_(i) = 45 * KDL::deg2rad * sin(M_PI / 2 * t);
+      qd_(i)      = 0.0;
+      qd_dot_(i)  = 0.0;
+      qd_ddot_(i) = 0.0;
   }
 
   // Motion Controller in Joint Space:
@@ -131,9 +134,13 @@ controller_interface::return_type ComputedTorqueController::update(
   // }
 
   // Apply Torque Command to Actuator
-  aux_d_.data = M_eigen * (qd_ddot_eigen + Kp_eigen.cwiseProduct(e_eigen) + Kd_eigen.cwiseProduct(e_dot_eigen));
-  comp_d_.data = C_.data + G_.data;
-  tau_d_.data = aux_d_.data + comp_d_.data;
+  //aux_d_.data = M_eigen * (qd_ddot_eigen + Kp_eigen.cwiseProduct(e_eigen) + Kd_eigen.cwiseProduct(e_dot_eigen));
+  //comp_d_.data = C_.data + G_.data;
+  //tau_d_.data = aux_d_.data + comp_d_.data;
+  
+  aux_d_.data  = -(Kp_.data.cwiseProduct(q_.data) + Kd_.data.cwiseProduct(qdot_.data)); // = -Kp*q - Kd*qdot
+  tau_d_.data  = M_.data * aux_d_.data + C_.data + G_.data;
+
 
   for (int i = 0; i < num_joints; i++)
   {

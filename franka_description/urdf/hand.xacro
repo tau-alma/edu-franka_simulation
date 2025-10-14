@@ -60,6 +60,11 @@
       <child link="${ns}_hand_tcp"/>
     </joint>
     <link name="${ns}_leftfinger">
+     <inertial>
+       <mass value="0.05"/>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <inertia ixx="1e-5" iyy="1e-5" izz="1e-5" ixy="0" ixz="0" iyz="0"/>
+     </inertial>
       <visual>
         <geometry>
           <mesh filename="package://${description_pkg}/meshes/visual/finger.dae"/>
@@ -67,6 +72,11 @@
       </visual>
     </link>
     <link name="${ns}_rightfinger">
+     <inertial>
+       <mass value="0.05"/>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <inertia ixx="1e-5" iyy="1e-5" izz="1e-5" ixy="0" ixz="0" iyz="0"/>
+     </inertial>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
         <geometry>

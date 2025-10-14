@@ -1,0 +1,8 @@
+pid_gains:
+  panda_joint1: {p: 200.0, i: 0.0, d: 10.0, i_clamp_min: -1.0, i_clamp_max: 1.0}
+  panda_joint2: {p: 200.0, i: 0.0, d: 10.0, i_clamp_min: -1.0, i_clamp_max: 1.0}
+  panda_joint3: {p: 150.0, i: 0.0, d:  8.0, i_clamp_min: -1.0, i_clamp_max: 1.0}
+  panda_joint4: {p: 120.0, i: 0.0, d:  6.0, i_clamp_min: -1.0, i_clamp_max: 1.0}
+  panda_joint5: {p:  80.0, i: 0.0, d:  4.0, i_clamp_min: -1.0, i_clamp_max: 1.0}
+  panda_joint6: {p:  60.0, i: 0.0, d:  3.0, i_clamp_min: -1.0, i_clamp_max: 1.0}
+  panda_joint7: {p:  40.0, i: 0.0, d:  2.0, i_clamp_min: -1.0, i_clamp_max: 1.0}

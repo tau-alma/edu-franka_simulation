@@ -2,12 +2,12 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find franka_description)/urdf/ros2_control/utils.xacro" />
-
+  
   <xacro:macro name="panda_arm_ros2_control"
     params="ns use_fake_hardware sim_ignition initial_positions">
-
+    
     <ros2_control name="${ns}_system" type="system">
-
+      
       <hardware>
         <xacro:if value="${sim_ignition}">
           <plugin>ign_ros2_control/IgnitionSystem</plugin>

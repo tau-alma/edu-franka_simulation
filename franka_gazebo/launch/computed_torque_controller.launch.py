@@ -52,7 +52,7 @@ def generate_launch_description():
     )
     robot_description = {"robot_description": robot_description_content}
 
-    # Nodes
+    # publishes transformations to /tf_static
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -94,6 +94,21 @@ def generate_launch_description():
             "true",
         ],
     )
+    
+    # Add camera bridge node
+    camera_bridge_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='camera_bridge',
+        arguments=[
+            '/wrist_cam/image@sensor_msgs/msg/Image@ignition.msgs.Image',
+            '/wrist_cam/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo',
+            '--ros-args',
+            '-r', '/wrist_cam/image:=/camera/image_raw',
+            '-r', '/wrist_cam/camera_info:=/camera/camera_info'
+        ],
+        output='screen'
+    )
 
     # launch arguments for Gazebo {args, world (- v 1 = log level)}
     gz_launch_description = IncludeLaunchDescription(
@@ -110,6 +125,8 @@ def generate_launch_description():
         computed_torque_controller_spawner,
         gz_spawn_entity,
         gz_launch_description,
+        camera_bridge_node,
+        
     ]
 
     return LaunchDescription(nodes_to_start)

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<robot name="rgb_camera_defs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--
+    Macro: wrist_rgb_camera
+    - Adds a small physical camera_link (with inertial, collision, visual)
+    - Adds an optical frame with standard ROS camera rotation
+    - Fix-joints it to a parent link (default: panda_link7)
+    - Declares a pure SDF camera sensor (Ignition/Gazebo Sim style)
+    Works on Ignition Fortress (Gazebo 6) with world Sensors system loaded.
+  -->
+  <xacro:macro name="rgb_camera" params="
+      parent_link:='panda_link7'
+      camera_name:='rgb_camera'
+      camera_link_name:='camera_link'
+      camera_optical_link_name:='camera_link_optical'
+      xyz:='0 0 0.08'
+      rpy:='0 0 0'
+      width:='640'
+      height:='480'
+      hfov:='1.047'   
+      update_rate:='30'
+      clip_near:='0.05'
+      clip_far:='10.0'
+      topic:='/wrist_cam'
+      visualize:='true'
+    ">
+
+    <!-- Physical link so Gazebo keeps it in the tree -->
+    <link name="${camera_link_name}">
+      <inertial>
+        <mass value="0.01"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+
+      <visual name="${camera_link_name}_vis">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><box size="0.01 0.01 0.01"/></geometry>
+        <material><color rgba="0 0 0 1"/></material>
+      </visual>
+
+      <collision name="${camera_link_name}_col">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><box size="0.01 0.01 0.01"/></geometry>
+      </collision>
+    </link>
+
+    <!-- Mount to wrist (or any parent link you pass in) -->
+    <joint name="${camera_name}_mount" type="fixed">
+      <parent link="${parent_link}"/>
+      <child  link="${camera_link_name}"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+
+    <!-- Optical frame: x right, y down, z forward -->
+    <link name="${camera_optical_link_name}">
+      <inertial>
+        <mass value="1e-6"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-12" iyy="1e-12" izz="1e-12" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+    <joint name="${camera_name}_optical_joint" type="fixed">
+      <parent link="${camera_link_name}"/>
+      <child  link="${camera_optical_link_name}"/>
+      <!-- rotate into optical frame -->
+      <origin xyz="0 0 0" rpy="0 -1.57079632679 -1.57079632679"/>
+    </joint>
+
+    <!-- Ignition/Gazebo Sim camera sensor (no Classic plugins) -->
+    <gazebo reference="${camera_link_name}">
+      <sensor name="${camera_name}" type="camera">
+        <always_on>true</always_on>
+        <update_rate>${update_rate}</update_rate>
+        <visualize>${visualize}</visualize>
+        <topic>${topic}</topic>
+        <camera>
+          <horizontal_fov>${hfov}</horizontal_fov>
+          <image>
+            <width>${width}</width>
+            <height>${height}</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>${clip_near}</near>
+            <far>${clip_far}</far>
+          </clip>
+        </camera>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+</robot>
