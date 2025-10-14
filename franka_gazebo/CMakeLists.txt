@@ -21,7 +21,7 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-Install the script so ros2 run can find it
+#Install the script so ros2 run can find it
 install(PROGRAMS
    scripts/tri_wave.py
    scripts/pose_estimate.py
