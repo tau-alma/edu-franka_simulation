@@ -1,4 +1,4 @@
-# Setting up the simulation environment for Visual Servoing Exercise
+# Setting up the simulation environment for Visual Servoing
 
 This branch presents a simulation of Franka Panda arm with a camera sensor in gazebo environment. A custom world with an aruco marker is simulated and its pose is estimated by a pose estimation script. Simulation of gazebo sensors ( eg: camera) was part of gazebo classic (EOL 2025) and does not support Ignition gazebo (Fortress/Garden/Harmonic, a.k.a. `gz sim`). In `gz_sim` sensors are first-class `SDF` <sensor> elements. When you simulate an `URDF` file in ignition gazebo ( here after reffered to as gazebo) it is automatically converted to a `SDF` file during spawning. Defining a gazebo sensor inside `URDF` file does not accurfately convert into a working `SDF` file. Therefore, the recommended approach is to convert the `URDF` file to a `SDF` file offline and combine it with a `SDF`file of well defined camera model.
 
@@ -8,7 +8,7 @@ This branch presents a simulation of Franka Panda arm with a camera sensor in ga
 
 ## 1. Installation
 
-### Install and Initialize rosdep
+### 1.1 Install and Initialize rosdep
 ```
 sudo apt-get install python3-rosdep
 ```
@@ -17,27 +17,68 @@ If this is the first time using rosdep, it must be initialized via:
 sudo rosdep init
 rosdep update
 ```
-### Download, Create a Workspace, and Build
+### 1.2 Download, Create a Workspace, and Build
+
+1.2.1 create the direectories
+
 ```
 mkdir -p edu-franka_vs_ws/src
 cd edu-franka_vs_ws/src
 ```
-Clone the repository:
+1.2.2 Clone the repository:
 - Using HTTPS:
   ```
   git clone https://github.com/tau-alma/edu-franka_simulation.git -b visual_serv .
   ```
-Install dependencies using rosdep:
+1.2.3 Install dependencies using rosdep:
 ```
 cd ..
 rosdep install --from-paths src -y --ignore-src
 ```
-Build the workspace:
+### 1.3 Generate the SDF files from URDF
+
+1.3.1 convert the urdf.xacro to a complete urdf with inertial values:
+```
+ros2 run xacro xacro \
+  src/franka_description/urdf/effort_panda_arm.urdf.xacro \
+  sim_ignition:=true \
+  -o src/franka_description/urdf/effort_panda_arm.urdf
+```
+1.3.2 Add a small inertia to `panda_link0` and `panda_link8`in the `effort_panda_arm.urdf`. 
+( Add the following <inertia>..</inertia> snippets carefully to relavant links. 
+Otherwise the generate .sdf file will be inaccurate)
+
+```
+<link name="panda_link0">
+  <inertial>
+    <mass value="1e-3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+  </inertial>
+  <!-- your existing visual/collision here -->
+</link>
+
+<link name="panda_link8">
+  <inertial>
+    <mass value="1e-3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+  </inertial>
+  <!-- your existing visual/collision here -->
+</link>
+```
+1.3.3 populate the sdf file in model directory
+
+```
+gz sdf -p src/franka_description/urdf/effort_panda_arm.urdf > src/franka_gazebo/models/panda/model.sdf
+```
+
+1.3.4 Build the workspace:
 ```
 colcon build
 source install/setup.bash
 ```
-Launch the simulation
+1.3.5 Launch the simulation
 ```
 ros2 launch franka_gazebo launch_with_camera.launch.py
 ```
