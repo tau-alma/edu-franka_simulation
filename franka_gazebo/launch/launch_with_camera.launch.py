@@ -17,7 +17,7 @@ def generate_launch_description():
     panda_with_cam_sdf = PathJoinSubstitution([franka_gazebo_share, "models", "panda_with_cam", "model.sdf"])
     models_dir = PathJoinSubstitution([FindPackageShare('franka_gazebo'), 'models'])
     controllers_yaml = PathJoinSubstitution([franka_gazebo_share, "config", "franka_controllers.yaml"])
-    xacro_file = PathJoinSubstitution([franka_description_share, "urdf", "effort_panda_arm_cam.urdf.xacro"])
+    xacro_file = PathJoinSubstitution([franka_description_share, "urdf", "effort_panda_arm.urdf.xacro"])
 
     # --- URDF 
     urdf_cmd = Command([
