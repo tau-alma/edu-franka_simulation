@@ -35,6 +35,12 @@ cd edu-franka_vs_ws/src
 cd ..
 rosdep install --from-paths src -y --ignore-src
 ```
+1.2.1 Build the workspace:
+```
+colcon build
+source install/setup.bash
+```
+
 ### 1.3 Generate the SDF files from URDF
 
 1.3.1 convert the urdf.xacro to a complete urdf with inertial values:
@@ -73,7 +79,7 @@ Otherwise the generate .sdf file will be inaccurate)
 gz sdf -p src/franka_description/urdf/effort_panda_arm.urdf > src/franka_gazebo/models/panda/model.sdf
 ```
 
-1.3.4 Build the workspace:
+1.3.4 Re-Build the workspace:
 ```
 colcon build
 source install/setup.bash
