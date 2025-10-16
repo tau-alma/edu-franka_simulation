@@ -35,7 +35,7 @@ cd edu-franka_vs_ws/src
 cd ..
 rosdep install --from-paths src -y --ignore-src
 ```
-1.2.1 Build the workspace:
+1.2.4 Build the workspace:
 ```
 colcon build
 source install/setup.bash
@@ -51,8 +51,8 @@ ros2 run xacro xacro \
   -o src/franka_description/urdf/effort_panda_arm.urdf
 ```
 1.3.2 Add a small inertia to `panda_link0` and `panda_link8`in the `effort_panda_arm.urdf`. 
-( Add the following <inertia>..</inertia> snippets carefully to relavant links. 
-Otherwise the generate .sdf file will be inaccurate)
+( Add the following `<inertia>..</inertia>` snippets carefully to the relavant links in `urdf`. 
+Otherwise the generate `.sdf` file will be inaccurate)
 
 ```
 <link name="panda_link0">
